@@ -81,7 +81,7 @@ void *prod(void * args){
   
     // Insere tantos valores quanto os passados por arg
     for(int i=0;i<a->v;i++){
-        // Da lock no mutex para pois esta entrando na secao critica
+        // Da lock no mutex pois esta entrando na secao critica
         pthread_mutex_lock(&mutex_buffer);
         // Testa se o buffer esta cheio
         while(a->l->size() == a->t){
@@ -104,7 +104,7 @@ void *con(void * args){
     // Laco infinito
     while(1){
         int aux,flag;
-        // Da lock no mutex para pois esta entrando na secao critica
+        // Da lock no mutex pois esta entrando na secao critica
         pthread_mutex_lock(&mutex_buffer);
         // Testa se o buffer nao esta vazio
         while(a->l->size() == 0){
@@ -114,7 +114,7 @@ void *con(void * args){
         // Remove o primeiro elemento a ser inserido no buffer
         aux = a->l->front();
         a->l->pop_front();
-        // Se o elemento for -1, termina a libera o mutex e termina a thread
+        // Se o elemento for -1, libera o mutex e termina a thread
         if(aux==-1){
             pthread_mutex_unlock(&mutex_buffer);
             break;
